@@ -283,8 +283,8 @@ elif actions == "Risk vs Return":
         plt.grid(alpha=0.7)
         st.pyplot()
 
-# COMMAND-9: DAILY TRADING VOLUMES
 
+#COMMAND-9: DAILY TRADING VOLUME
 elif actions == "Daily Trading Volume":
     st.subheader("Daily Trading Volumes")
 
@@ -302,14 +302,19 @@ elif actions == "Daily Trading Volume":
 
         volume = data["Volume"]
 
-        # Plotting the figure of the daily trading volume
+        # Plotting the bar graph of daily trading volume for all tickers
         plt.figure(figsize=(15, 7))
-        
+
+        # Plotting each ticker's volume as a bar chart
         for tickerf in tickers:
-            plt.plot(volume[tickerf], label=tickerf)  # Use tickerf here
+            if tickerf in volume.columns:
+                volume[tickerf].plot(kind="bar", label=tickerf, alpha=0.6)
+
         plt.title("Daily Trading Volume")
         plt.xlabel("Date")
         plt.ylabel("Volume")
-        plt.xticks(rotation=5)
+        plt.xticks(rotation=45)
         plt.grid(axis="y", alpha=0.7, linestyle="--")
+        plt.legend()
         st.pyplot()
+
