@@ -282,3 +282,35 @@ elif actions == "Risk vs Return":
         plt.ylabel("Average Returns (%)")
         plt.grid(alpha=0.7)
         st.pyplot()
+
+# COMMAND-9: DAILY TRADING VOLUMES
+
+elif actions == "Daily Trading Volume":
+    st.subheader("Daily Trading Volumes")
+
+#GETTING TICKERS FROM THE USER
+tickers=st.text_input("Enter Stock Ticker(s) (e.g., TATAPOWER, TATMOTORS)").split(",")
+
+#GETTING THE START AND END DATE OF THE DATA
+start_date = st.date_input("Start Date")
+end_date = st.date_input("End Date")
+
+if st.button("Daily Trading Voluime"):
+
+    #FETCHING DATA OF THE TICKERS
+    data = yf.download(tickers, start=start_date, end=end_date, threads=False)
+
+    volume=data["Volume"]
+
+    #PLOTTING THE FIGURE OF THE DAILY TRADING VOLUME
+    plt.figure(figsize=(15,7))
+    
+    for tickerf in tickers:
+        plt.plot(volume[ticker], label=ticker)
+        plt.title("Daily Trading Volume")
+        plt.xlabel("Date")
+        plt.ylabel("Volume")
+        plt.xticks(rotation=5)
+        plt.grid(axis="y", alpha=0.7, linestyle="--")
+        st.pyplot()
+
