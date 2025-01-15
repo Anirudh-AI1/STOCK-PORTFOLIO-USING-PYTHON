@@ -288,29 +288,28 @@ elif actions == "Risk vs Return":
 elif actions == "Daily Trading Volume":
     st.subheader("Daily Trading Volumes")
 
-#GETTING TICKERS FROM THE USER
-tickers=st.text_input("Enter Stock Ticker(s) (e.g., TATAPOWER, TATMOTORS)").split(",")
+    # Getting tickers from the user
+    tickers = st.text_input("Enter Stock Ticker(s) (e.g., TATAPOWER, TATMOTORS)").split(",")
 
-#GETTING THE START AND END DATE OF THE DATA
-start_date = st.date_input("Start Date")
-end_date = st.date_input("End Date")
+    # Getting the start and end date of the data
+    start_date = st.date_input("Start Date")
+    end_date = st.date_input("End Date")
 
-if st.button("Daily Trading Voluime"):
+    if st.button("Daily Trading Volume"):
 
-    #FETCHING DATA OF THE TICKERS
-    data = yf.download(tickers, start=start_date, end=end_date, threads=False)
+        # Fetching data of the tickers
+        data = yf.download(tickers, start=start_date, end=end_date, threads=False)
 
-    volume=data["Volume"]
+        volume = data["Volume"]
 
-    #PLOTTING THE FIGURE OF THE DAILY TRADING VOLUME
-    plt.figure(figsize=(15,7))
-    
-    for tickerf in tickers:
-        plt.plot(volume[ticker], label=ticker)
+        # Plotting the figure of the daily trading volume
+        plt.figure(figsize=(15, 7))
+        
+        for tickerf in tickers:
+            plt.plot(volume[tickerf], label=tickerf)  # Use tickerf here
         plt.title("Daily Trading Volume")
         plt.xlabel("Date")
         plt.ylabel("Volume")
         plt.xticks(rotation=5)
         plt.grid(axis="y", alpha=0.7, linestyle="--")
         st.pyplot()
-
