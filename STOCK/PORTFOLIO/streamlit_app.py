@@ -286,7 +286,7 @@ elif actions == "Risk vs Return":
 
 #COMMAND-9: DAILY TRADING VOLUME
 elif actions == "Daily Trading Volume":
-    st.subheader("Daily Trading Volumes")
+    st.subheader("Average Daily Trading Volume")
 
     # Getting tickers from the user
     tickers = st.text_input("Enter Stock Ticker(s) (e.g., TATAPOWER, TATMOTORS)").split(",")
@@ -295,28 +295,26 @@ elif actions == "Daily Trading Volume":
     start_date = st.date_input("Start Date")
     end_date = st.date_input("End Date")
 
-    if st.button("Daily Trading Volume"):
+    if st.button("Average Daily Trading Volume"):
 
         # Fetching data of the tickers
         data = yf.download(tickers, start=start_date, end=end_date, threads=False)
 
         volume = data["Volume"]
 
-        # Plotting the bar graph of daily trading volume for all tickers
-        plt.figure(figsize=(15, 7))
+        # Calculating average daily trading volume for each ticker
+        avg_volumes = volume.mean()
 
-        # Creating a bar plot where each ticker's volume is displayed separately
-        for idx, tickerf in enumerate(tickers):
-            if tickerf in volume.columns:
-                # Plot the volume for each ticker as a separate bar on the same x-axis (date)
-                plt.bar(volume.index + pd.Timedelta(days=idx * 1), volume[tickerf], label=tickerf, alpha=0.6, width=0.8)
+        # Plotting the bar graph for average daily trading volumes
+        plt.figure(figsize=(10, 6))
 
-        plt.title("Daily Trading Volume")
-        plt.xlabel("Date")
-        plt.ylabel("Volume")
+        # Plotting a bar for each ticker's average daily volume
+        avg_volumes[tickers].plot(kind="bar", color="green", edgecolor="black")
+
+        plt.title("Average Daily Trading Volume")
+        plt.xlabel("Ticker")
+        plt.ylabel("Average Volume")
         plt.xticks(rotation=45)
         plt.grid(axis="y", alpha=0.7, linestyle="--")
-        plt.legend()
+        plt.show()
         st.pyplot()
-
-
