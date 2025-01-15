@@ -38,7 +38,7 @@ st.sidebar.title("Portfolio Actions")
 actions = st.sidebar.radio(
     "Select an Action",
     options=["View Portfolio", "Total Investment", "Buy Stock", "Sell Stock", "Stock Trend", 
-             "Average Daily Return", "Volatility", "Risk vs Return"]
+             "Average Daily Return", "Volatility", "Risk vs Return","Daily Trading Volume"]
 )
 
 # COMMAND-1: VIEW PORTFOLIO
