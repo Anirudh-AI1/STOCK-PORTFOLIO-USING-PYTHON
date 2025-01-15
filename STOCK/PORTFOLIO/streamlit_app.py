@@ -305,10 +305,11 @@ elif actions == "Daily Trading Volume":
         # Plotting the bar graph of daily trading volume for all tickers
         plt.figure(figsize=(15, 7))
 
-        # Plotting each ticker's volume as a bar chart
-        for tickerf in tickers:
+        # Creating a bar plot where each ticker's volume is displayed separately
+        for idx, tickerf in enumerate(tickers):
             if tickerf in volume.columns:
-                volume[tickerf].plot(kind="bar", label=tickerf, alpha=0.6)
+                # Plot the volume for each ticker as a separate bar on the same x-axis (date)
+                plt.bar(volume.index + pd.Timedelta(days=idx * 1), volume[tickerf], label=tickerf, alpha=0.6, width=0.8)
 
         plt.title("Daily Trading Volume")
         plt.xlabel("Date")
@@ -317,4 +318,5 @@ elif actions == "Daily Trading Volume":
         plt.grid(axis="y", alpha=0.7, linestyle="--")
         plt.legend()
         st.pyplot()
+
 
